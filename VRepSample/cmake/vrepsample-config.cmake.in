@@ -1,0 +1,54 @@
+# VRepSample CMake config file
+#
+# This file sets the following variables:
+# VRepSample_FOUND - Always TRUE.
+# VRepSample_INCLUDE_DIRS - Directories containing the VRepSample include files.
+# VRepSample_IDL_DIRS - Directories containing the VRepSample IDL files.
+# VRepSample_LIBRARIES - Libraries needed to use VRepSample.
+# VRepSample_DEFINITIONS - Compiler flags for VRepSample.
+# VRepSample_VERSION - The version of VRepSample found.
+# VRepSample_VERSION_MAJOR - The major version of VRepSample found.
+# VRepSample_VERSION_MINOR - The minor version of VRepSample found.
+# VRepSample_VERSION_REVISION - The revision version of VRepSample found.
+# VRepSample_VERSION_CANDIDATE - The candidate version of VRepSample found.
+
+message(STATUS "Found VRepSample-@PROJECT_VERSION@")
+set(VRepSample_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(VRepSample_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(VRepSample_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(VRepSample_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(VRepSample_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(VRepSample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(VRepSample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(VRepSample_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(VRepSample_VERSION @PROJECT_VERSION@)
+set(VRepSample_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(VRepSample_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(VRepSample_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(VRepSample_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

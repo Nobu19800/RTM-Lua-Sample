@@ -1,0 +1,54 @@
+# BizHawkSample CMake config file
+#
+# This file sets the following variables:
+# BizHawkSample_FOUND - Always TRUE.
+# BizHawkSample_INCLUDE_DIRS - Directories containing the BizHawkSample include files.
+# BizHawkSample_IDL_DIRS - Directories containing the BizHawkSample IDL files.
+# BizHawkSample_LIBRARIES - Libraries needed to use BizHawkSample.
+# BizHawkSample_DEFINITIONS - Compiler flags for BizHawkSample.
+# BizHawkSample_VERSION - The version of BizHawkSample found.
+# BizHawkSample_VERSION_MAJOR - The major version of BizHawkSample found.
+# BizHawkSample_VERSION_MINOR - The minor version of BizHawkSample found.
+# BizHawkSample_VERSION_REVISION - The revision version of BizHawkSample found.
+# BizHawkSample_VERSION_CANDIDATE - The candidate version of BizHawkSample found.
+
+message(STATUS "Found BizHawkSample-@PROJECT_VERSION@")
+set(BizHawkSample_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(BizHawkSample_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(BizHawkSample_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(BizHawkSample_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(BizHawkSample_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(BizHawkSample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(BizHawkSample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(BizHawkSample_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(BizHawkSample_VERSION @PROJECT_VERSION@)
+set(BizHawkSample_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(BizHawkSample_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(BizHawkSample_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(BizHawkSample_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
