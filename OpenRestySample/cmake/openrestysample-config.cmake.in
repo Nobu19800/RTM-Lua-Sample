@@ -1,0 +1,54 @@
+# OpenRestySample CMake config file
+#
+# This file sets the following variables:
+# OpenRestySample_FOUND - Always TRUE.
+# OpenRestySample_INCLUDE_DIRS - Directories containing the OpenRestySample include files.
+# OpenRestySample_IDL_DIRS - Directories containing the OpenRestySample IDL files.
+# OpenRestySample_LIBRARIES - Libraries needed to use OpenRestySample.
+# OpenRestySample_DEFINITIONS - Compiler flags for OpenRestySample.
+# OpenRestySample_VERSION - The version of OpenRestySample found.
+# OpenRestySample_VERSION_MAJOR - The major version of OpenRestySample found.
+# OpenRestySample_VERSION_MINOR - The minor version of OpenRestySample found.
+# OpenRestySample_VERSION_REVISION - The revision version of OpenRestySample found.
+# OpenRestySample_VERSION_CANDIDATE - The candidate version of OpenRestySample found.
+
+message(STATUS "Found OpenRestySample-@PROJECT_VERSION@")
+set(OpenRestySample_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(OpenRestySample_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(OpenRestySample_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(OpenRestySample_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(OpenRestySample_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(OpenRestySample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(OpenRestySample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(OpenRestySample_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(OpenRestySample_VERSION @PROJECT_VERSION@)
+set(OpenRestySample_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(OpenRestySample_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(OpenRestySample_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(OpenRestySample_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

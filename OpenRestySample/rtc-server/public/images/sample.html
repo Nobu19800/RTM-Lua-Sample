@@ -1,0 +1,57 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" Content="text/html;charset=Shift_JIS">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+
+<title>OpenRTM Lua版デモ</title>
+
+<script type="text/javascript">
+<!--
+function createXMLHttpRequest() {
+    if (window.XMLHttpRequest) {
+        return new window.XMLHttpRequest();
+    } else {
+        try {
+            return new ActiveXObject("MSXML2.XMLHTTP.6.0");
+        } catch (e) {
+            try {
+                return new ActiveXObject("MSXML2.XMLHTTP.3.0");
+            } catch (e) {
+                return null;
+            }
+        }
+    }
+}
+
+
+function moveBall(){
+    var xmlHttp;
+
+    xmlHttp = createXMLHttpRequest();
+    
+    xmlHttp.onreadystatechange = function() {
+	try {
+		var data = JSON.parse(xmlHttp.responseText);
+		document.ballImage.style.left=parseInt(data.x)+300;
+		document.ballImage.style.top=-parseInt(data.y)+300;
+		
+	} catch (e) {
+    	}
+    }
+    xmlHttp.open("GET", "http://localhost:1080/?command=update", true);
+    xmlHttp.send(null);
+}
+
+// -->
+</script>
+
+</head>
+<body>
+
+
+<body onLoad="setInterval('moveBall()',25)">
+<img src="test.gif" name="ballImage" style="position:absolute;left:0px;top:16px;">
+
+
+</body>
+</html>
