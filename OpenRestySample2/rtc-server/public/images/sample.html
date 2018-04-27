@@ -1,0 +1,76 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" Content="text/html;charset=Shift_JIS">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+
+<title>OpenRTM Lua版デモ動画2</title>
+
+<script type="text/javascript">
+<!--
+function createXMLHttpRequest() {
+    if (window.XMLHttpRequest) {
+        return new window.XMLHttpRequest();
+    } else {
+        try {
+            return new ActiveXObject("MSXML2.XMLHTTP.6.0");
+        } catch (e) {
+            try {
+                return new ActiveXObject("MSXML2.XMLHTTP.3.0");
+            } catch (e) {
+                return null;
+            }
+        }
+    }
+}
+
+function testUpdate(){
+    var xmlHttp;
+    xmlHttp = createXMLHttpRequest();
+    
+    xmlHttp.onreadystatechange = function() {
+		
+    }
+    xmlHttp.open("GET", "http://localhost:1080/?command=update", true);
+    xmlHttp.send(null);
+}
+
+
+
+function showImageByCreateObjectURL() {
+	var xhr = new XMLHttpRequest();
+	xhr.responseType = "blob";
+	xhr.open("GET", "http://localhost:1080/?command=update", true);
+	xhr.onload = function() {
+		var oURL = URL.createObjectURL(this.response);
+		//var image = document.getElementById("imgTest");
+		var image = new Image();
+		image.onload = function() {
+			URL.revokeObjectURL(oURL);
+		};
+		image.src = oURL;
+
+		//$("#images").append(image);
+		//appendHTML( '<a href="' + oURL + '" target="_blank"><img src="' + oURL + '"></a>' + "<br>" ) ;
+		//appendHTML( oURL + "<br>" ) ;
+		document.getElementById( "result" ).innerHTML = '<a href="' + oURL + '" target="_blank"><img src="' + oURL + '"></a>' + "<br>"
+	};
+	xhr.send(null);
+}
+
+function appendHTML ( html ) {
+	document.getElementById( "result" ).innerHTML += html ;
+}
+
+
+// -->
+</script>
+
+</head>
+<body>
+
+
+<div id="result"></div>
+<body onLoad="setInterval('showImageByCreateObjectURL()',100)">
+
+</body>
+</html>
