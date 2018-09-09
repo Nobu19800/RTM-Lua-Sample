@@ -1,0 +1,54 @@
+# LOVESample CMake config file
+#
+# This file sets the following variables:
+# LOVESample_FOUND - Always TRUE.
+# LOVESample_INCLUDE_DIRS - Directories containing the LOVESample include files.
+# LOVESample_IDL_DIRS - Directories containing the LOVESample IDL files.
+# LOVESample_LIBRARIES - Libraries needed to use LOVESample.
+# LOVESample_DEFINITIONS - Compiler flags for LOVESample.
+# LOVESample_VERSION - The version of LOVESample found.
+# LOVESample_VERSION_MAJOR - The major version of LOVESample found.
+# LOVESample_VERSION_MINOR - The minor version of LOVESample found.
+# LOVESample_VERSION_REVISION - The revision version of LOVESample found.
+# LOVESample_VERSION_CANDIDATE - The candidate version of LOVESample found.
+
+message(STATUS "Found LOVESample-@PROJECT_VERSION@")
+set(LOVESample_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(LOVESample_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(LOVESample_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(LOVESample_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(LOVESample_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(LOVESample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(LOVESample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(LOVESample_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(LOVESample_VERSION @PROJECT_VERSION@)
+set(LOVESample_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(LOVESample_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(LOVESample_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(LOVESample_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
