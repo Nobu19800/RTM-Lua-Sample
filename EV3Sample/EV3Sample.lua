@@ -56,12 +56,7 @@ EV3Sample.new = function(manager)
 	local obj = {}
 	setmetatable(obj, {__index=openrtm.RTObject.new(manager)})
 
-	local fpath = openrtm.StringUtil.dirname(string.sub(debug.getinfo(1)["source"],2))
-	local _str = string.gsub(fpath,"\\","/").."idl/ExtendedDataTypes.idl"
-	manager:loadIdLFile(_str)
-	local fpath = openrtm.StringUtil.dirname(string.sub(debug.getinfo(1)["source"],2))
-	local _str = string.gsub(fpath,"\\","/").."idl/BasicDataType.idl"
-	manager:loadIdLFile(_str)
+
 
 	obj._d_touch = openrtm.RTCUtil.instantiateDataType("::RTC::TimedBooleanSeq")
 	--[[
@@ -162,21 +157,21 @@ EV3Sample.new = function(manager)
 	--
 	function obj:onActivated(ec_id)
 		self._touchsensor1 = TouchSensor("in1")
-		if not self._touchsensor1:s:connected() then
+		if not self._touchsensor1:connected() then
 			return self._ReturnCode_t.RTC_ERROR
 		end
 		self._touchsensor2 = TouchSensor("in2")
-		if not self._touchsensor2:s:connected() then
+		if not self._touchsensor2:connected() then
 			return self._ReturnCode_t.RTC_ERROR
 		end
 
 		self._lmotor1 = LargeMotor("outA")
-		if not self._lmotor1:s:connected() then
+		if not self._lmotor1:connected() then
 			return self._ReturnCode_t.RTC_ERROR
 		end
 
 		self._lmotor2 = LargeMotor("outB")
-		if not self._lmotor2:s:connected() then
+		if not self._lmotor2:connected() then
 			return self._ReturnCode_t.RTC_ERROR
 		end
 		
