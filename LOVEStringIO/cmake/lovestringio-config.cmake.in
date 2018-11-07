@@ -1,0 +1,54 @@
+# LOVEStringIO CMake config file
+#
+# This file sets the following variables:
+# LOVEStringIO_FOUND - Always TRUE.
+# LOVEStringIO_INCLUDE_DIRS - Directories containing the LOVEStringIO include files.
+# LOVEStringIO_IDL_DIRS - Directories containing the LOVEStringIO IDL files.
+# LOVEStringIO_LIBRARIES - Libraries needed to use LOVEStringIO.
+# LOVEStringIO_DEFINITIONS - Compiler flags for LOVEStringIO.
+# LOVEStringIO_VERSION - The version of LOVEStringIO found.
+# LOVEStringIO_VERSION_MAJOR - The major version of LOVEStringIO found.
+# LOVEStringIO_VERSION_MINOR - The minor version of LOVEStringIO found.
+# LOVEStringIO_VERSION_REVISION - The revision version of LOVEStringIO found.
+# LOVEStringIO_VERSION_CANDIDATE - The candidate version of LOVEStringIO found.
+
+message(STATUS "Found LOVEStringIO-@PROJECT_VERSION@")
+set(LOVEStringIO_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(LOVEStringIO_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(LOVEStringIO_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(LOVEStringIO_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(LOVEStringIO_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(LOVEStringIO_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(LOVEStringIO_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(LOVEStringIO_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(LOVEStringIO_VERSION @PROJECT_VERSION@)
+set(LOVEStringIO_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(LOVEStringIO_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(LOVEStringIO_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(LOVEStringIO_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
