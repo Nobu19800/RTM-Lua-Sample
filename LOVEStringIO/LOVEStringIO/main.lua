@@ -75,7 +75,7 @@ function draw_text(str, x, y)
       length = length+#s
       if width < length*font_size*3/4 then
         print_text = print_text.."\n"..s
-        length = 0
+        length = #s
         count = count+1
       else
         print_text = print_text..s.." "
