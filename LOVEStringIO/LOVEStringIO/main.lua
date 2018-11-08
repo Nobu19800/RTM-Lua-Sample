@@ -2,6 +2,7 @@ local utf8 = require("utf8")
 
 local text = ""
 local delflag = false
+local font_size = 56
 
 function love.load()
   love.keyboard.setKeyRepeat(true)
@@ -28,6 +29,8 @@ function love.load()
   mgr:activateManager()
   mgr:runManager(true)
 
+  local font = love.graphics.newFont(font_size)
+  love.graphics.setFont(font)
   
 end
    
@@ -59,6 +62,27 @@ function love.keypressed(key)
   end
 
 end
+
+function draw_text(str, x, y)
+  local openrtm = require "openrtm"
+  local str_list = openrtm.StringUtil.split(str, " ")
+  local width = love.graphics.getWidth()
+  local height = love.graphics.getHeight
+  local length = 0
+  local print_text = ""
+  local count = 0
+  for k,s in ipairs(str_list) do
+      length = length+#s
+      if width < length*font_size*3/4 then
+        print_text = print_text.."\n"..s
+        length = 0
+        count = count+1
+      else
+        print_text = print_text..s.." "
+      end
+  end
+  love.graphics.print(print_text, x, y-count*font_size)
+end
    
 function love.draw()
   
@@ -79,8 +103,12 @@ function love.draw()
   love.graphics.polygon("fill", 0,height/2, width,height/2, width,height, 0,height)
 
   love.graphics.setColor(0, 0, 0)
-  love.graphics.print(text, 10, height/4, 0, 4, 4)
-  love.graphics.print(intext, 10, height/4*3, 0, 4, 4)
+  
+  
+  --love.graphics.print(text, 10, height/4, 0, 1, 1)
+  --love.graphics.print(intext, 10, height/4*3, 0, 1, 1)
+  draw_text(text, 10, height/4)
+  draw_text(intext, 10, height/4*3)
 end
 
 
