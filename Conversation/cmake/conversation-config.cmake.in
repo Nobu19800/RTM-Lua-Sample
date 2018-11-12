@@ -1,0 +1,54 @@
+# Conversation CMake config file
+#
+# This file sets the following variables:
+# Conversation_FOUND - Always TRUE.
+# Conversation_INCLUDE_DIRS - Directories containing the Conversation include files.
+# Conversation_IDL_DIRS - Directories containing the Conversation IDL files.
+# Conversation_LIBRARIES - Libraries needed to use Conversation.
+# Conversation_DEFINITIONS - Compiler flags for Conversation.
+# Conversation_VERSION - The version of Conversation found.
+# Conversation_VERSION_MAJOR - The major version of Conversation found.
+# Conversation_VERSION_MINOR - The minor version of Conversation found.
+# Conversation_VERSION_REVISION - The revision version of Conversation found.
+# Conversation_VERSION_CANDIDATE - The candidate version of Conversation found.
+
+message(STATUS "Found Conversation-@PROJECT_VERSION@")
+set(Conversation_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Conversation_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Conversation_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Conversation_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Conversation_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Conversation_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Conversation_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Conversation_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Conversation_VERSION @PROJECT_VERSION@)
+set(Conversation_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Conversation_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Conversation_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Conversation_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
