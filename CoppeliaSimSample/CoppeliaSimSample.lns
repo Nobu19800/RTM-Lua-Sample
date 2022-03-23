@@ -1,0 +1,93 @@
+/*
+// @file CoppeliaSimSample.lua
+// @brief CoppeliaSim RTC Example
+// @date $Date$
+*/
+
+
+
+// Import RTM module
+import openrtm_lns;
+
+
+
+// Import Service implementation class
+// <rtc-template block="service_impl">
+
+
+
+
+
+
+
+// </rtc-template>
+
+
+// This module's spesification
+// <rtc-template block="module_spec">
+// This module's spesification
+// <rtc-template block="module_spec">
+let coppeliasimsample_spec = {"implementation_id":"CoppeliaSimSample",
+        "type_name":"CoppeliaSimSample",
+        "description":"CoppeliaSim RTC Example",
+        "version":"1.0.0",
+        "vendor":"Nobuhiko Miyamoto",
+        "category":"Simulator",
+        "activity_type":"STATIC",
+        "max_instance":"1",
+        "language":"MoonScript",
+        "lang_type":"SCRIPT",
+    };
+// </rtc-template>
+
+
+// @class CoppeliaSimSample
+// @brief CoppeliaSim RTC Example
+class CoppeliaSimSample extend openrtm_lns.RTObjectBase {
+    let mut _d_in:Map<str,stem>;
+    let mut _inIn:openrtm_lns.InPort_lns;
+    pub fn __init( manager: openrtm_lns.Manager ) {
+        super( manager );
+
+        self._d_in = openrtm_lns.RTCUtil.instantiateDataType("::RTC::TimedFloatSeq");
+        /*
+        */
+        self._inIn = unwrap openrtm_lns.InPort.new("in", self._d_in, "::RTC::TimedFloatSeq");
+
+
+
+
+
+        // initialize of configuration-data.
+        // <rtc-template block="init_conf_param">
+
+}
+
+
+
+fn CoppeliaSimSampleCreate( manager:openrtm_lns.Manager ) : &openrtm_lns.RTObject_lns {
+    let rtobj = new CoppeliaSimSample(manager);
+    return rtobj.getComp();
+}
+
+pub fn CoppeliaSimSampleInit( manager: openrtm_lns.Manager ) {
+    let prof = openrtm_lns.Properties.new(coppeliasimsample_spec);
+    manager.registerFactory(prof,
+                            CoppeliaSimSampleCreate,
+                            openrtm_lns.Factory.Delete);
+}
+
+
+fn MyModuleInit( manager:openrtm_lns.Manager ) {
+    CoppeliaSimSampleInit(manager);
+
+    // Create a component
+    let comp = manager.createComponent("CoppeliaSimSample");
+}
+
+let mut manager = openrtm_lns.Manager;
+manager.init([]);
+manager.setModuleInitProc(MyModuleInit);
+manager.activateManager();
+manager.runManager();
+

@@ -1,0 +1,54 @@
+# CoppeliaSimSample CMake config file
+#
+# This file sets the following variables:
+# CoppeliaSimSample_FOUND - Always TRUE.
+# CoppeliaSimSample_INCLUDE_DIRS - Directories containing the CoppeliaSimSample include files.
+# CoppeliaSimSample_IDL_DIRS - Directories containing the CoppeliaSimSample IDL files.
+# CoppeliaSimSample_LIBRARIES - Libraries needed to use CoppeliaSimSample.
+# CoppeliaSimSample_DEFINITIONS - Compiler flags for CoppeliaSimSample.
+# CoppeliaSimSample_VERSION - The version of CoppeliaSimSample found.
+# CoppeliaSimSample_VERSION_MAJOR - The major version of CoppeliaSimSample found.
+# CoppeliaSimSample_VERSION_MINOR - The minor version of CoppeliaSimSample found.
+# CoppeliaSimSample_VERSION_REVISION - The revision version of CoppeliaSimSample found.
+# CoppeliaSimSample_VERSION_CANDIDATE - The candidate version of CoppeliaSimSample found.
+
+message(STATUS "Found CoppeliaSimSample-@PROJECT_VERSION@")
+set(CoppeliaSimSample_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(CoppeliaSimSample_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(CoppeliaSimSample_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(CoppeliaSimSample_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(CoppeliaSimSample_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(CoppeliaSimSample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(CoppeliaSimSample_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(CoppeliaSimSample_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(CoppeliaSimSample_VERSION @PROJECT_VERSION@)
+set(CoppeliaSimSample_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(CoppeliaSimSample_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(CoppeliaSimSample_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(CoppeliaSimSample_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
